@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="xhtml+xml;; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>Стрічка за «ленточкой». Як змінилася географія візитів президента України Петра Порошенка протягом чотирьох років</title>
+    <meta name="description" content="Стрічка за «ленточкой». Як змінилася географія візитів президента України Петра Порошенка протягом чотирьох років" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="VoxUkraine" />
+    <meta name="copyright" content="VoxUkraine" />
+    <meta name="application-name" content="" />
+       
+    <meta property="og:title" content="Стрічка за «ленточкой». Як змінилася географія візитів президента України Петра Порошенка протягом чотирьох років" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://voxukraine.org/wp-content/uploads/2018/07/head1.png" />
+    <meta property="og:url" content="https://voxukraine.org/longreads/visits/index.html" />
+    <meta property="og:description" content="VoxUkraine проаналізував усі публічні заходи Петра Порошенка в Україні та з’ясував, скільки об’єктів було відкрито за участю президента" />
+       
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VoxUkraine проаналізував усі публічні заходи Петра Порошенка в Україні та з’ясував, скільки об’єктів було відкрито за участю президента" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="https://voxukraine.org/wp-content/uploads/2018/07/head1.png" />
+
+    <!-- Icon --> 
+    <link rel="shortcut icon" href="https://voxukraine.org/wp-content/uploads/2016/08/cropped-favicon-e1480670976718.png">
+
+    <!-- Tinos font --> 
+    <link href='https://fonts.googleapis.com/css?family=Tinos:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+    <!-- css --> 
+    <link rel="stylesheet" href="css/style.css?v1">
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+	<script src="http://code.highcharts.com/maps/modules/map.js"></script>
+	<script src="https://code.highcharts.com/mapdata/countries/ua/ua-all.js"></script>
+    
+    <style type="text/css">
+
+    #map {
+        max-width: 1000px;
+        height: 600px;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+    /* This is new */
+    .buttons {
+        max-width: 1000px;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+    button {
+        width: 150px;
+        border-radius: 3px;
+        border: none;
+        color: white;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+	    transition-duration: 0.4s;
+	    margin-top: 5px;
+        margin-left: 10px;
+    }
+    button:hover {
+    	box-shadow: 0 5px 5px 0 rgba(0,0,0,0.24), 0 17px 30px 0 rgba(0,0,0,0.19);
+	}
+		#container {
+	    height: 500px; 
+	    max-width: 1000px; 
+	    margin: 0 auto; 
+	}
+	.loading {
+	    margin-top: 10em;
+	    text-align: center;
+	    color: gray;
+	}
+
+	#result {
+	    text-align: right;
+	    color: gray;
+	    min-height: 2em;
+	}
+	#table-sparkline {
+	    margin: 0 auto;
+	    border-collapse: collapse;
+	    font-family: 'Circe'
+	}
+	th {
+	    font-weight: bold;
+	    text-align: left;
+	}
+	td, th {
+	    padding: 5px;
+	    border-bottom: 1px solid silver;
+	    height: 20px;
+	}
+
+	thead th {
+	    border-top: 2px solid gray;
+	    border-bottom: 2px solid gray;
+	}
+	.highcharts-tooltip>span {
+	    background: white;
+	    border: 1px solid silver;
+	    border-radius: 3px;
+	    box-shadow: 1px 1px 2px #888;
+	    padding: 8px;
+	}
+    </style>
+        
+    <!-- Social Share Kit JS -->
+    <script type="text/javascript" src="social-share-kit-1.0.9/dist/js/social-share-kit.min.js"></script>
+    <link rel="stylesheet" href="social-share-kit-1.0.9/dist/css/social-share-kit.css" type="text/css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="fixed-nav-bar"><div class="logo"><a href="https://voxukraine.org"><img id="logo" src="photos/logo.png" alt=""></a></div></nav>
+
+    <!-- заголовок -->
+    <div class="heading"><h2>Стрічка за «ленточкой». Як змінилася географія візитів президента України Петра Порошенка протягом чотирьох років</h2></div>
+
+    <div id="map"></div>
+
+    <div class="buttons">
+        <button type="button" id="all" style="background-color: #b0bec5; max-width: 60px;">Усі</button>
+        <button type="button" id="openO" style="background-color: #F3291A;">«Ленточки»</button>
+        <button type="button" id="oglyad" style="background-color: #43A047;">Огляд об'єкту</button>
+        <button type="button" id="zys" style="background-color: #039BE5;">Зустрічі</button>
+        <button type="button" id="vys" style="background-color: #FDD835;">Виступ</button>
+        <button type="button" id="vry" style="background-color: #546E7A;">Вручення нагород</button>
+        <button type="button" id="vsh" style="background-color: #757575;">Вшанування пам'яті</button>
+    </div>
+    
+    <!-- подзаголовок -->
+    <div class="wide"><h4 align="center"><b>VoxUkraine проаналізував усі публічні заходи Петра Порошенка в Україні та з’ясував, скільки об’єктів було відкрито за участю президента</b></h4></div>
+
+    <!-- автор -->
+    <div class="author">Автори: Олександр Надельнюк</div>
+    <!-- текст -->
+    <div class="skinny">
+        <p>&#171;Петро Порошенко з робочим візитом відвідав Донбас&#187;, &#171;Президент відкрив сучасний медичний заклад на Київщині&#187;, &#171;Глава держави взяв участь у відкритті пам’ятника у Львові&#187; – такі заголовки регулярно зустрічаються у новинних стрічках. За чотири роки президент відвідав понад 700 публічних заходів в Україні за межами Адміністрації Президента. Візити президента в регіони можуть багато чого сказати про ситуацію в країні і пріоритети глави держави. Нагороджувати державними відзнаками та брати участь в офіційних заходах – одні з функцій президента згідно з Конституцією. Але останнім часом Порошенка критикують за надмірну участь у &#171;перерізанні червоних стрічок&#187; – відкритті різноманітних інфраструктурних об’єктів. &#171;Петро Порошенко відкрив дорожній знак. Це як Колумб Америку, тільки дорожній знак&#187;, – <a target="_blank" href="https://24tv.ua/ru/kolumb_otkryl_ameriku_a_poroshenko__znak_v_seti_vysmejali_otkrytie_24_kilometrov_dorogi_n988646">жартували</a> в соціальних мережах користувачі після повідомлення про відкриття президентом ділянки дороги на Запоріжжі. </p>
+
+		<p>VoxUkraine зібрав інформацію про всі публічні переміщення президента в межах України за чотири роки роботи та з’ясував, куди їздив Порошенко найбільше, як змінилася географія та чи дійсно останніми місяцями президент відкриває забагато шкіл, садочків та доріг.</p>
+
+		<h3>Як ми рахували</h3>
+
+		<p>Прес-служба Адміністрації Президента щодня публікує новини про діяльність Порошенка на офіційному сайті президента. Ми виокремили з прес-релізів, фотозвітів та виступів місця проведення подій. Ми не включали до переліку зустрічі в Адміністрації Президента (АП) й закордонні поїздки. Загалом за період 07.06.2014–22.06.2018 ми виявили 727 подій, які відвідав Порошенко в межах України. Усі дані ви можете знайти за <a target="_blank" href="https://docs.google.com/spreadsheets/d/1DVPjS5vYW3e-iakp5tZRp2KgKPB61Q31fuWgLzqqEDg/edit?usp=sharing">посиланням</a>. Якщо ви знайшли помилку або знаєте про візит президента, який ми пропустили, напишіть нам на адресу: o.nadelnyuk@voxukraine.org.</p>
+
+		<h3>Загальний огляд</h3>
+
+		<p>727 публічних подій відбулися за участю першої особи держави з 2014 року. За цей час Порошенко здійснив 187 регіональних візитів, де взяв участь у 354 публічних заходах.</p>
+	</div>
+	<div id="container"></div>
+	<div class="skinny">
+		<p>Найбільше часу президент приділив трьом українським областям – Київській (33 візити), Донецькій (25) та Львівській (21). Поїздки розподілені за часом досить рівно: за чотири роки Київську та Донецьку області Порошенко міг не відвідувати максимум три місяці, а Львівську та Одеську – півроку. Найпопулярніші міста – Львів (14 візитів), Одеса (11) та Харків (10). </p>
+
+		<p>З цієї статистики напрошується висновок: Порошенко найчастіше їздить у великі за кількістю мешканців українські області. Але якщо співвіднести кількість візитів до кількості населення, то ця гіпотеза не зовсім підтверджується. Найбільшу кількість візитів на 100 000 населення президент здійснив до Київської області, сьомої за кількістю мешканців: 1,88 візита на кожні 100 000. На другому місці за цим показником розташувалася Львівська (0,83) область, а на третьому – Одеська (0,67). За цим показником несподівано низько опинилася Дніпропетровська область: друга за кількістю населення, вона &#171;набрала&#187; лише 0,24.</p>
+	</div>
+	    <div id="result"></div>
+<table id="table-sparkline">
+    <thead>
+        <tr>
+            <th>Регіон</th>
+            <th>Кількість візитів</th>
+            <th>Візитів на 100 тис населення</th>
+            <th>Тренд, поквартально</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-sparkline">
+        <tr>
+            <th>Київська</th>
+            <td style="background-color: #66bd7d">33</td>
+            <td style="background-color: #66bd7d">1,88</td>
+            <td data-sparkline="0, 1, 3, 2, 3, 0, 1, 2, 4, 2, 3, 2, 2, 2, 2, 2, 2"/>
+        </tr>
+        <tr>
+            <th>Донецька</th>
+            <td style="background-color: #d1ead9">25</td>
+            <td style="background-color: #8ccd9e">0,60</td>
+            <td data-sparkline="1, 2, 2, 2, 2, 1, 0, 1, 2, 2, 3, 0, 1, 1, 2, 1, 2"/>
+        </tr>
+        <tr>
+            <th>Львівська</th>
+            <td style="background-color: #bde1c9">21</td>
+            <td style="background-color: #9fd5ae">0,83</td>
+            <td data-sparkline="0, 0, 2, 1, 1, 5, 1, 1, 1, 1, 1, 0, 0, 2, 1, 2, 2"/>
+        </tr>
+        <tr>
+            <th>Одеська</th>
+            <td style="background-color: #cbe8d5">17</td>
+            <td style="background-color: #b1dcbe">0,67</td>
+            <td data-sparkline="0, 1, 1, 0, 2, 2, 1, 0, 0, 1, 2, 1, 1, 2, 1, 0, 2"/>
+        </tr>
+        <tr>
+            <th>Харківська</th>
+            <td style="background-color: #d1ebd9">17</td>
+            <td style="background-color: #b1dcbe">0,60</td>
+            <td data-sparkline="0, 0, 2, 2, 0, 1, 1, 1, 1, 2, 1, 1, 0, 3, 2, 0, 0"/>
+        </tr>
+        <tr>
+            <th>Вінницька</th>
+            <td style="background-color: #d3ebdb">9</td>
+            <td style="background-color: #d7edde">0,57</td>
+            <td data-sparkline="0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1, 0, 0, 2, 0, 0, 2"/>
+        </tr>
+        <tr>
+            <th>Дніпропетровська</th>
+            <td style="background-color: #edf6f3">8</td>
+            <td style="background-color: #dcefe3">0,25</td>
+            <td data-sparkline="0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1"/>
+        </tr>
+        <tr>
+            <th>Луганська</th>
+            <td style="background-color: #e3f2ea">8</td>
+            <td style="background-color: #dcefe3">0,37</td>
+            <td data-sparkline="0, 0, 1, 0, 0, 1, 2, 0, 0, 0, 0, 0, 1, 2, 0, 1, 0"/>
+        </tr>
+        <tr>
+            <th>Миколаївська</th>
+            <td style="background-color: #cfead8">7</td>
+            <td style="background-color: #e0f1e7">0,62</td>
+            <td data-sparkline="0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1"/>
+        </tr>
+        <tr>
+            <th>Житомирська</th>
+            <td style="background-color: #daeee1">6</td>
+            <td style="background-color: #e5f3eb">0,49</td>
+            <td data-sparkline="0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0"/>
+        </tr>
+        <tr>
+            <th>Івано-Франківська</th>
+            <td style="background-color: #def0e5">6</td>
+            <td style="background-color: #e5f3eb">0,44</td>
+            <td data-sparkline="0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1"/>
+        </tr>
+        <tr>
+            <th>Запорізька</th>
+            <td style="background-color: #eaf5ef">5</td>
+            <td style="background-color: #e9f5ef">0,29</td>
+            <td data-sparkline="0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1"/>
+        </tr>
+        <tr>
+            <th>Тернопільська</th>
+            <td style="background-color: #e2f2e9">5</td>
+            <td style="background-color: #e9f5ef">0,38</td>
+            <td data-sparkline="0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 2, 0, 0, 1, 0, 0, 0"/>
+        </tr>
+        <tr>
+            <th>Рівненська</th>
+            <td style="background-color: #e5f3eb">4</td>
+            <td style="background-color: #eef7f3">0,34</td>
+            <td data-sparkline="0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0"/>
+        </tr>
+        <tr>
+            <th>Чернігівська</th>
+            <td style="background-color: #eaf5ef">3</td>
+            <td style="background-color: #f3f9f7">0,30</td>
+            <td data-sparkline="0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0"/>
+        </tr>
+        <tr>
+            <th>Волинь</th>
+            <td style="background-color: #f8fbfb">2</td>
+            <td style="background-color: #f8fbfb">0,19</td>
+            <td data-sparkline="0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0"/>
+        </tr>
+        <tr>
+            <th>Закарпатська</th>
+            <td style="background-color: #f5f9f9">2</td>
+            <td style="background-color: #f8fbfb">0,16</td>
+            <td data-sparkline="0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0"/>
+        </tr>
+        <tr>
+            <th>Херсонська</th>
+            <td style="background-color: #f2f8f7">2</td>
+            <td style="background-color: #f8fbfb">0,19</td>
+            <td data-sparkline="0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1"/>
+        </tr>
+        <tr>
+            <th>Хмельницька</th>
+            <td style="background-color: #f5faf9">2</td>
+            <td style="background-color: #f8fbfb">0,16</td>
+            <td data-sparkline="0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1"/>
+        </tr>
+        <tr>
+            <th>Кіровоградська</th>
+            <td style="background-color: #fafbfd">1</td>
+            <td style="background-color: #fcfcff">0,10</td>
+            <td data-sparkline="0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0"/>
+        </tr>
+        <tr>
+            <th>Полтавська</th>
+            <td style="background-color: #fcfcff">1</td>
+            <td style="background-color: #fcfcff">0,07</td>
+            <td data-sparkline="0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0"/>
+        </tr>
+        <tr>
+            <th>Сумська</th>
+            <td style="background-color: #fbfcfe">33</td>
+            <td style="background-color: #fcfcff">0,09</td>
+            <td data-sparkline="0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0"/>
+        </tr>
+        <tr>
+            <th>Черкаська</th>
+            <td style="background-color: #fcfcff">1</td>
+            <td style="background-color: #fcfcff">0,08</td>
+            <td data-sparkline="0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"/>
+        </tr>
+        <tr>
+            <th>Чернівецька</th>
+            <td style="background-color: #f9fbfd">1</td>
+            <td style="background-color: #fcfcff">0,11</td>
+            <td data-sparkline="0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"/>
+        </tr>
+        
+    </tbody>
+</table>
+	<div class="skinny">
+		<p>Крім регіональних візитів, Порошенко проводить зустрічі та виступи в межах Києва. Не дивно, що &#171;столичних виходів на люди&#187; президента більше, ніж усіх регіональних: за чотири роки президент відвідав 373 заходи в Києві. Найпопулярніші місця – &#171;Мистецький Арсенал&#187; (27 візитів), Верховна Рада (21) та Софіївська площа (15).</p>
+
+		<h3>Слова, слова + екскурсії та нагородження</h3>
+
+		<p>Щоб зрозуміти, на що найбільше витрачає час президент, ми класифікували всі публічні заходи. З чого складається більшість візитів гаранта?</p>
+
+		<p>Основний елемент майже кожної публічної події з президентом – його виступ перед аудиторією. Певно, це була б найбільша категорія в нашій класифікації, проте ми вирішили деталізувати виступ як подію і виокремили додаткові заходи (крім виступів), наприклад, екскурсію підприємством чи вручення нагород. Візити Порошенка, де був тільки виступ чи неможливо було виокремити іншу активність, ми віднесли до категорії &#171;виступ&#187;.</p>
+
+		<p>Такі огляди/екскурсії місця візиту – найпоширеніший сценарій: 111 разів президенту показували заводи, техніку та військові навчання. У детальному розрізі статистика така: відвідання заводів/підприємств – 37 разів, огляд техніки та озброєння – 20 і військові навчання – 14. </p>
+</div>
+<div id="container2" style="max-width: 700px; margin: 0 auto;"></div>
+<!--<div class="graph"><img src="photos/types-poroshenko.png"></div>-->
+<div class="skinny">
+		<p>На другому місці в пріоритетах Порошенка зустрічі. Президент охоче зустрічається зі студентами й школярами: за чотири роки Порошенко провів 39 зустрічей/виступів у навчальних закладах. 26 зустрічей президент провів з військовими і ще 14 з іноземними гостями та делегаціями. Загалом ми нарахували 108 зустрічей. На третьому місці вручення нагород, ключів від квартир та техніки.</p>
+
+		<p>Але найбільше уваги Петро Порошенко приділяє армії. Згідно з даними візитів, з нею так чи інакше були пов’язані 23,6% поїздок: зустрічі з військовими, огляд військових баз та навчань, вручення нагород та дипломів у військових університетах. Порошенко навіть двічі літав на винищувачі та один раз випробовував БТР.</p>
+
+		<h3>Відкриття об’єктів</h3>
+
+		<p>Заходи з відкриття об’єктів, так звані перерізання червоних стрічок, Порошенко відвідував стільки ж разів, як і вшанування пам’яті різним особам: по 79 разів. До цієї категорії ми вносили відкриття як інфраструктурних об’єктів (заводів, шкіл), так і, наприклад, участь у запуску патрульної поліції чи оновленого Верховного Суду.</p>
+</div>
+<div class="graph"><img src="photos/1.png"></div>
+<div class="skinny">
+		<p>Півроку з початку президентства пройшли без &#171;перерізання червоних стрічок&#187;. Першим відкритим об’єктом були два гідроагрегати <a target="_blank" href="http://www.president.gov.ua/news/prezident-zdijsniv-zapusk-dvoh-gidroagregativ-dnistrovskoyi-33949">Дністровської ГАЕС</a> у жовтні 2014 року. Щоб це явище стало регулярним у президентському графіку, знадобилося більше року: сім об’єктів &#171;запустив&#187; Порошенко у третьому кварталі 2015-го. Найбільший &#171;урожай&#187; припав на третій квартал 2017 року – тоді президент відкрив загалом 16 об’єктів. Минулий, II квартал 2018-го Порошенко провів також досить продуктивно: президент дав старт дев’яти об’єктам. Це другий квартал за результативністю. </p>
+
+		<p>За четвертий рік президентства Порошенко встановив власний рекорд перерізаних стрічок: з червня 2017-го він відкрив 35 об’єктів. Показник збільшився на 66% порівняно із третім роком правління (але на другому місці за результативністю був другий рік президентства – тоді Петро Олексійович відкрив 22 об’єкти).</p>
+		<p>Чого тут більше – передвиборного піару чи ознак відновлення економіки, яке супроводжується запуском нових об'єктів, – ми не беремося оцінювати.</p>
+    </div>
+        <!-- соцсети -->
+    <div class="skinny" style="text-align: center; margin-top:30px; margin-bottom:30px;">
+        <div class="ssk-group ssk-grayscale ssk-round">
+            <a href="https://www.facebook.com/sharer.php?u=https://voxukraine.org/longreads/visits/index.html" class="ssk ssk-facebook"></a>
+            <a href="https://twitter.com/intent/tweet?text=https://voxukraine.org/longreads/visits/index.html" class="ssk ssk-twitter"></a>
+        </div>
+    </div>
+
+    <!-- вставка "поддержать" -->
+    <div class="sprt">
+        <div class="support"><p class="s-text">Ми віримо, що слова мають силу, а ідеї &#8211; визначний вплив. VoxUkraine об’єднує найкращих економістів та допомагає їм доносити ідеї до десятків тисяч співвітчизників. Контент VoxUkraine безкоштовний (і завжди буде безкоштовним), ми не продаємо рекламу та не займаємось лобізмом. Щоб проводити більше досліджень, створювати нові впливові проекти та публікувати багато якісних статей, нам потрібні розумні люди і гроші. Люди є! Підтримай VoxUkraine. Разом ми зробимо більше!</p></div>
+        <div class="btn"><button class="button"><a href="https://www.liqpay.com/api/3/checkout?data=eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXlkb25hdGUiLCJwdWJsaWNfa2V5IjoiaTU1NDYwNjQ0NzM4IiwiYW1vdW50IjoiMTAwMCIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQkdC70LDQs9C%2B0LTRltC50L3QuNC5INCy0L3QtdGB0L7QuiDQvdCwINC%2F0YDQvtC10LrRgiBcItCa0JrQlCDQtNC10L%2FRg9GC0LDRgtGW0LJcIiIsInR5cGUiOiJkb25hdGUiLCJsYW5ndWFnZSI6InJ1In0%3D&signature=Uj2t9YVlDyvaezKC2tXwOwsKwzg%3D">Підтримати VoxUkraine</a></button></div>
+    </div>
+
+    <!-- FOOTER -->
+<footer>
+<div id="footer" style="font-family: Circe-Regular; background-color: black;">
+<div class="footer-info">
+  <div class="one-third-left"><p>VoxUkraine — це незалежна та незаангажована аналітична платформа, яку заснувала та очолює команда досвідчених та висококваліфікованих економістів і юристів, що працюють в Україні та за кордоном. Метою VoxUkraine є підтримка економічних реформ у країні через просування заснованого на дослідженнях аналізу економічної політики, незалежну оцінку економічних перетворень, здійснення моніторингу та інтеграцію України в глобальну мережу економістів і політичних лідерів.</p><p>© VOXUKRAINE</p></div>
+  <div class="one-third-center">
+    <ul class="footer-list">
+      <li><a style="color: #f0f0f0;" href="https://voxukraine.org/uk/footer/support-2/">Support Vox</a></li>
+      <li><a style="color: #f0f0f0;" href="https://voxukraine.org/uk/footer/to-authors/">To Authors</a></li>
+      <li><a style="color: #f0f0f0;" href="https://voxukraine.org/uk/voxcheck-f-a-q/">VOXCHECK F.A.Q.</a></li>
+      <li><a style="color: #f0f0f0;" href="https://voxukraine.org/uk/footer/fellows-and-volunters/">Fellows and Volunters</a></li>
+      <li><a style="color: #f0f0f0;" href="https://voxukraine.org/uk/reports/">Annual Reports</a></li>
+      <li><a style="color: #f0f0f0;" href="https://voxukraine.org/uk/terms-and-privacy/">Terms and Privacy</a></li>
+      <li><a style="color: #f0f0f0;" href="https://voxukraine.org/uk/footer/join-us/">Contact us</a></li>
+    </ul>
+  </div>
+  <div class="one-third-right">
+    <ul class="footer-list">
+      <li><a style="color: #f0f0f0;" href="https://facebook.com/VoxUkraine.Ukranian/">Facebook</a></li>
+      <li><a style="color: #f0f0f0;" href="https://twitter.com/VoxUkraine">Twitter</a></li>
+      <li><a style="color: #f0f0f0;" href="https://t.me/vox_ukraine">Telegram</a></li>
+      <li><a style="color: #f0f0f0;" href="https://www.youtube.com/channel/UCR6MsnwJpQUJMYbef2vRbvw">Youtube</a></li>
+    </ul>
+  </div>
+  <div class="clear-third"></div>
+</div>
+</div>
+</footer>
+    <script>
+        var map = L.map('map').setView([48.4395, 31.6], 6);
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+    
+    var Icon = L.icon({
+        iconUrl: 'll.png',
+        iconSize:     [20, 31],
+        iconAnchor:   [10, 20],
+        popupAnchor:  [0, -10]
+    });
+    var IconOglyad = L.icon({
+        iconUrl: 'ogl.png',
+        iconSize:     [20, 31],
+        iconAnchor:   [10, 50],
+        popupAnchor:  [0, -50]
+    });
+    var Iconzys = L.icon({
+        iconUrl: 'zys.png',
+        iconSize:     [20, 31],
+        iconAnchor:   [10, 50],
+        popupAnchor:  [0, -50]
+    });
+    var Iconvys = L.icon({
+        iconUrl: 'vys.png',
+        iconSize:     [20, 31],
+        iconAnchor:   [10, 50],
+        popupAnchor:  [0, -50]
+    });
+    var Iconvry = L.icon({
+        iconUrl: 'vry.png',
+        iconSize:     [20, 31],
+        iconAnchor:   [10, 50],
+        popupAnchor:  [0, -50]
+    });
+    var Iconvsh = L.icon({
+        iconUrl: 'vsh.png',
+        iconSize:     [20, 31],
+        iconAnchor:   [10, 50],
+        popupAnchor:  [0, -50]
+    });
+    var Iconoth = L.icon({
+        iconUrl: 'oth.png',
+        iconSize:     [20, 31],
+        iconAnchor:   [10, 50],
+        popupAnchor:  [0, -50]
+    });
+
+    var promise = $.getJSON("visits.json");
+    promise.then(function(data) {
+        var allbusinesses = L.geoJson(data);
+        var openO = L.geoJson(data, {
+            filter: function(feature) {
+                return feature.properties.BusType == "відкриття об'єкту";
+            },
+            pointToLayer: function(feature) {
+                return L.marker(feature.geometry.coordinates, {
+                    icon: Icon
+                }).on('click', function() {
+                    this.bindPopup(feature.properties.Name).openPopup();
+                });
+            }
+        });
+        var oglyad = L.geoJson(data, {
+            filter: function(feature) {
+                return feature.properties.BusType == "огляд";
+            },
+            pointToLayer: function(feature) {
+                return L.marker(feature.geometry.coordinates, {
+                    icon: IconOglyad
+                }).on('click', function() {
+                    this.bindPopup(feature.properties.Name).openPopup();
+                });
+            }
+        });
+        var zys = L.geoJson(data, {
+            filter: function(feature) {
+                return feature.properties.BusType == "зустріч";
+            },
+            pointToLayer: function(feature) {
+                return L.marker(feature.geometry.coordinates, {
+                    icon: Iconzys
+                }).on('click', function() {
+                    this.bindPopup(feature.properties.Name).openPopup();
+                });
+            }
+        });
+        var vys = L.geoJson(data, {
+            filter: function(feature) {
+                return feature.properties.BusType == "виступ";
+            },
+            pointToLayer: function(feature) {
+                return L.marker(feature.geometry.coordinates, {
+                    icon: Iconvys
+                }).on('click', function() {
+                    this.bindPopup(feature.properties.Name).openPopup();
+                });
+            }
+        });
+        var vry = L.geoJson(data, {
+            filter: function(feature) {
+                return feature.properties.BusType == "вручення";
+            },
+            pointToLayer: function(feature) {
+                return L.marker(feature.geometry.coordinates, {
+                    icon: Iconvry
+                }).on('click', function() {
+                    this.bindPopup(feature.properties.Name).openPopup();
+                });
+            }
+        });
+        var vsh = L.geoJson(data, {
+            filter: function(feature) {
+                return feature.properties.BusType == "вшанування пам'яті";
+            },
+            pointToLayer: function(feature) {
+                return L.marker(feature.geometry.coordinates, {
+                    icon: Iconvsh
+                }).on('click', function() {
+                    this.bindPopup(feature.properties.Name).openPopup();
+                });
+            }
+        });
+        var others = L.geoJson(data, {
+            filter: function(feature) {
+                return feature.properties.BusType != "відкриття об'єкту" 
+                && feature.properties.BusType != "огляд"
+                && feature.properties.BusType != "виступ"
+                && feature.properties.BusType != "вручення" 
+                && feature.properties.BusType != "вшанування пам'яті" 
+                && feature.properties.BusType != "зустріч";
+            },
+            pointToLayer: function(feature) {
+                return L.marker(feature.geometry.coordinates, {
+                    icon: Iconoth
+                }).on('click', function() {
+                    this.bindPopup(feature.properties.Name).openPopup();
+                });
+            }
+        });
+        openO.addTo(map)
+        oglyad.addTo(map)
+        zys.addTo(map)
+        vys.addTo(map)
+        vry.addTo(map)
+        vsh.addTo(map)
+        others.addTo(map)
+        $("#openO").click(function() {
+            map.addLayer(openO)
+            map.removeLayer(oglyad)
+            map.removeLayer(zys)
+            map.removeLayer(vys)
+            map.removeLayer(vry)
+            map.removeLayer(vsh)
+            map.removeLayer(others)
+        });
+        $("#oglyad").click(function() {
+            map.addLayer(oglyad)
+            map.removeLayer(openO)
+            map.removeLayer(zys)
+            map.removeLayer(vys)
+            map.removeLayer(vry)
+            map.removeLayer(vsh)
+            map.removeLayer(others)
+        });
+        $("#zys").click(function() {
+            map.addLayer(zys)
+            map.removeLayer(oglyad)
+            map.removeLayer(openO)
+            map.removeLayer(vys)
+            map.removeLayer(vry)
+            map.removeLayer(vsh)
+            map.removeLayer(others)
+        });
+        $("#vys").click(function() {
+            map.addLayer(vys)
+            map.removeLayer(oglyad)
+            map.removeLayer(zys)
+            map.removeLayer(openO)
+            map.removeLayer(vry)
+            map.removeLayer(vsh)
+            map.removeLayer(others)
+        });
+        $("#vry").click(function() {
+            map.addLayer(vry)
+            map.removeLayer(oglyad)
+            map.removeLayer(zys)
+            map.removeLayer(vys)
+            map.removeLayer(openO)
+            map.removeLayer(vsh)
+            map.removeLayer(others)
+        });
+        $("#vsh").click(function() {
+            map.addLayer(vsh)
+            map.removeLayer(oglyad)
+            map.removeLayer(zys)
+            map.removeLayer(vys)
+            map.removeLayer(vry)
+            map.removeLayer(openO)
+            map.removeLayer(others)
+        });
+        $("#others").click(function() {
+            map.addLayer(others)
+            map.removeLayer(openO)
+            map.removeLayer(oglyad)
+            map.removeLayer(zys)
+            map.removeLayer(vys)
+            map.removeLayer(vry)
+            map.removeLayer(vsh)
+        });
+        $("#all").click(function() {
+            map.addLayer(openO)
+            map.addLayer(oglyad)
+            map.addLayer(zys)
+            map.addLayer(vys)
+            map.addLayer(vry)
+            map.addLayer(vsh)
+            map.addLayer(others)
+        });
+        
+    });
+    </script>
+
+<script>
+	
+/**
+ * Create a constructor for sparklines that takes some sensible defaults and merges in the individual
+ * chart options. This function is also available from the jQuery plugin as $(element).highcharts('SparkLine').
+ */
+Highcharts.SparkLine = function (a, b, c) {
+    var hasRenderToArg = typeof a === 'string' || a.nodeName,
+        options = arguments[hasRenderToArg ? 1 : 0],
+        defaultOptions = {
+            chart: {
+                renderTo: (options.chart && options.chart.renderTo) || this,
+                backgroundColor: null,
+                borderWidth: 0,
+                type: 'area',
+                margin: [2, 0, 2, 0],
+                width: 120,
+                height: 20,
+                style: {
+                    overflow: 'visible',
+                    fontFamily: 'Circe'
+                },
+
+                // small optimalization, saves 1-2 ms each sparkline
+                skipClone: true
+            },
+            title: {
+                text: ''
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                labels: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                startOnTick: false,
+                endOnTick: false,
+                tickPositions: []
+            },
+            yAxis: {
+                endOnTick: false,
+                startOnTick: false,
+                labels: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                tickPositions: [0]
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                backgroundColor: null,
+                borderWidth: 0,
+                shadow: false,
+                useHTML: true,
+                hideDelay: 0,
+                shared: true,
+                padding: 0,
+                positioner: function (w, h, point) {
+                    return { x: point.plotX - w / 2, y: point.plotY - h };
+                }
+            },
+            plotOptions: {
+                series: {
+                    animation: false,
+                    lineWidth: 1,
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    marker: {
+                        radius: 1,
+                        states: {
+                            hover: {
+                                radius: 2
+                            }
+                        }
+                    },
+                    fillOpacity: 0.25
+                },
+                column: {
+                    negativeColor: '#910000',
+                    borderColor: 'silver'
+                }
+            }
+        };
+
+    options = Highcharts.merge(defaultOptions, options);
+
+    return hasRenderToArg ?
+        new Highcharts.Chart(a, options, c) :
+        new Highcharts.Chart(options, b);
+};
+
+var start = +new Date(),
+    $tds = $('td[data-sparkline]'),
+    fullLen = $tds.length,
+    n = 0;
+
+// Creating 153 sparkline charts is quite fast in modern browsers, but IE8 and mobile
+// can take some seconds, so we split the input into chunks and apply them in timeouts
+// in order avoid locking up the browser process and allow interaction.
+function doChunk() {
+    var time = +new Date(),
+        i,
+        len = $tds.length,
+        $td,
+        stringdata,
+        arr,
+        data,
+        chart;
+
+    for (i = 0; i < len; i += 1) {
+        $td = $($tds[i]);
+        stringdata = $td.data('sparkline');
+        arr = stringdata.split('; ');
+        data = $.map(arr[0].split(', '), parseFloat);
+        chart = {};
+
+        if (arr[1]) {
+            chart.type = arr[1];
+        }
+        $td.highcharts('SparkLine', {
+            series: [{
+                data: data,
+                pointStart: 1
+            }],
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">' + $td.parent().find('th').html() + ', Q{point.x}:</span><br/>',
+                pointFormat: '<b>{point.y}</b>'
+            },
+            chart: chart
+        });
+
+        n += 1;
+
+        // If the process takes too much time, run a timeout to allow interaction with the browser
+        if (new Date() - time > 500) {
+            $tds.splice(0, i + 1);
+            setTimeout(doChunk, 0);
+            break;
+        }
+    }
+}
+doChunk();
+</script>
+
+    <script>
+	// Prepare demo data
+// Data is joined to map using value of 'hc-key' property by default.
+// See API docs for 'joinBy' for more info on linking data and map.
+var data = [
+    ["ua-vi", 9],
+["ua-vo", 2],
+["ua-dp", 8],
+["ua-dt", 25],
+["ua-zt", 6],
+["ua-zk", 2],
+["ua-zp", 5],
+["ua-if", 6],
+["ua-kv", 33],
+["ua-kh", 1],
+["ua-kr", null],
+["ua-lh", 7],
+["ua-lv", 21],
+["ua-kc", null],
+["ua-mk", 7],
+["ua-my", 16],
+["ua-pl", 1],
+["ua-rv", 4],
+["ua-sc", null],
+["ua-sm", 1],
+["ua-tp", 4],
+["ua-kk", 16],
+["ua-ks", 2],
+["ua-km", 2],
+["ua-ck", 1],
+["ua-ch", 1],
+["ua-cv", 3]
+];
+
+// Create the chart
+Highcharts.mapChart('container', {
+    chart: {
+        map: 'countries/ua/ua-all',
+        style: {
+        	fontFamily: 'Circe'
+        }
+    },
+
+    title: {
+        text: 'Візити Петра Порошенка за регіонами'
+    },
+
+    mapNavigation: {
+        enabled: false,
+        buttonOptions: {
+            verticalAlign: 'bottom'
+        }
+    },
+
+    colorAxis: {
+        min: 0
+    },
+credits:{
+	enabled: false
+},
+    series: [{
+        data: data,
+        name: 'Кількість візитів',
+        states: {
+            hover: {
+                color: '#BADA55'
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            format: '{point.name}'
+        }
+    }]
+});
+
+</script>
+<script>
+Highcharts.chart('container2', {
+    chart: {
+        type: 'bar',
+        style: {
+        	fontFamily: 'Circe'
+        }
+    },
+    title: {
+        text: 'Типи візитів за участі президента'
+    },
+    subtitle: {
+        text: 'Клікніть на категорію для деталізації'
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: null
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    credits: {
+    	enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> візитів<br/>'
+    },
+    "series": [
+        {
+            "name": "Типи візитів",
+            "data": [
+                {
+                    "name": "Огляд",
+                    "y": 111,
+                    'color': '#00B0F0',
+                    "drilldown": "oglyad"
+                },
+                {
+                    "name": "Зустріч",
+                    "y": 107,
+                    'color': '#00B0F0',
+                    "drilldown": "Зустріч"
+                },
+                {
+                    "name": "Вручення",
+                    "y": 104,
+                    'color': '#00B0F0',
+                    "drilldown": "Вручення"
+                },
+                {
+                    "name": "Вшанування пам'яті",
+                    "y": 79,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Відкриття об'єкту",
+                    "y": 79,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Відвідання події",
+                    "y": 40,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Представлення чиновника",
+                    "y": 38,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Молитва",
+                    "y": 26,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Участь у пленарному засіданні",
+                    "y": 14,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Панахида",
+                    "y": 8,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Підписання",
+                    "y": 8,
+                    'color': '#00B0F0',
+                    "drilldown": "Підписання"
+                },
+                {
+                    "name": "Прес-конференція",
+                    "y": 4,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Випробування",
+                    "y": 3,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Марш",
+                    "y": 1,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Участь у засіданні Кабміну",
+                    "y": 1,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                },
+                {
+                    "name": "Виступ",
+                    "y": 108,
+                    'color': '#00B0F0',
+                    "drilldown": null
+                }
+            ]
+        }
+    ],
+    "drilldown": {
+        "series": [
+            {
+                "name": "Огляд",
+                "id": "oglyad",
+                "data": [
+                    ['Огляд підприємства', 38], 
+                    ['Огляд техніки/озброєння', 20], 
+                    ['Огляд військових навчань', 14], 
+                    ['Огляд лікарні', 10], 
+                    ['Огляд будівництва доріг', 6], 
+                    ['Огляд будівництва', 5], 
+                    ['Огляд військових баз', 5], 
+                    ['Огляд міста', 5], 
+                    ["Огляд об'єктів", 4] 
+                ]
+            },
+            {
+                "name": "Зустріч",
+                "id": "Зустріч",
+                "data": [
+                    ['Зустріч зі студентами, школярами', 39], 
+                    ['Зустріч з військовими', 24], 
+                    ['Зустріч з іноземними гостями', 14], 
+                    ['Зустріч з укр. родиною', 8], 
+                    ['Зустріч з представниками бізнесу', 6], 
+                    ['Зустріч з правоохоронцями', 3], 
+                    ['Зустріч з лікарями', 2], 
+                    ['Зустріч з регіональними головами', 2], 
+                    ['Зустріч з представниками освіти', 1], 
+                    ['Зустріч з керівництвом Одеської області', 1]
+                ]
+            },
+            {
+                "name": "Вручення",
+                "id": "Вручення",
+                "data": [
+                    ['Вручення нагород', 66], 
+                    ['Вручення ключів від квартир', 17], 
+                    ['Вручення техніки/озброєння', 16], 
+                    ['Вручення дипломів', 2], 
+                    ['Вручення автомобілю', 1], 
+                    ['Вручення медичного обладнання', 1]
+                ]
+            },
+            {
+                "name": "Підписання",
+                "id": "Підписання",
+                "data": [
+                    ['Підписання указу', 3], 
+                    ['Підписання угоди', 3], 
+                    ['Підписання закону', 2]
+                ]
+            }
+        ]
+    }
+});
+</script>
+
+    <!-- Google analytics-->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-54527150-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+    <script>
+        // Init Social Share Kit
+        SocialShareKit.init({
+            'url': 'https://voxukraine.org/longreads/visits/index.html',
+            'twitter': {
+                'title': '',
+                'via': 'voxukraine.org'
+            }
+        });
+    </script>
+</body>
+</html>
